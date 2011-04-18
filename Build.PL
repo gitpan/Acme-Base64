@@ -1,25 +1,38 @@
+
 use strict;
 use warnings;
-use Module::Build;
 
-my $builder = Module::Build->new(
-    module_name       => 'Acme::Base64',
-    license           => 'perl',
-    dist_author       => 'Alan Haggai Alavi <haggai@cpan.org>',
-    dist_version_from => 'lib/Acme/Base64.pm',
-    build_requires    => { 'Test::More' => 0, },
-    requires          => {
-        'version'        => 0,
-        'MIME::Base64'   => 0,
-        'Filter::Simple' => 0,
-    },
-    'meta_merge' => {
-        'resources' => {
-            'repository' =>
-              'git://github.com/alanhaggai/Acme-Base64.git',
-        },
-    },
-    add_to_cleanup => ['Acme-Base64-*'],
+use Module::Build 0.3601;
+
+
+my %module_build_args = (
+  'build_requires' => {
+    'ExtUtils::MakeMaker' => '6.31',
+    'Module::Build' => '0.3601',
+    'Test::More' => '0'
+  },
+  'configure_requires' => {
+    'ExtUtils::MakeMaker' => '6.31',
+    'Module::Build' => '0.3601'
+  },
+  'dist_abstract' => 'Write Perl in Base64 encoding',
+  'dist_author' => [
+    'Alan Haggai Alavi <alanhaggai@alanhaggai.org>'
+  ],
+  'dist_name' => 'Acme-Base64',
+  'dist_version' => '0.03',
+  'license' => 'perl',
+  'module_name' => 'Acme::Base64',
+  'recommends' => {},
+  'recursive_test_files' => 1,
+  'requires' => {
+    'Filter::Simple' => '0',
+    'MIME::Base64' => '0'
+  },
+  'script_files' => []
 );
 
-$builder->create_build_script();
+
+my $build = Module::Build->new(%module_build_args);
+
+$build->create_build_script;
